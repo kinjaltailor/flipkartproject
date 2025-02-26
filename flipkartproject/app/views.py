@@ -4,10 +4,13 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from .models import Product, Cart, Orders
 
 
 def index(req):
-    return render(req, "index.html")
+    allproducts = Product.objects.all()
+    context = {"allproducts":allproducts}
+    return render(req, "index.html", context)
 
 
 def validate_password(password):
@@ -168,3 +171,9 @@ def reset_password(req, uname):
         except ValidationError as e:
             context["errmsg"] = str(e)
             return render(req, "reset_password.html", context)
+
+def about(req):
+    return render(req, "about.html")
+
+def contact(req):
+    return render(req, "contact.html")

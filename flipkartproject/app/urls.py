@@ -13,4 +13,7 @@ urlpatterns = [
         name="request_password_reset",
     ),
     path("reset_password/<uname>/", views.reset_password, name="reset_password"),
+    path("about/", views.about, name="about"),
+    path("contact/", views.contact, name="contact"),
+
 ]
