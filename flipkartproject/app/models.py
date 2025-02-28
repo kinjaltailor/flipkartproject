@@ -49,3 +49,4 @@ class Orders(models.Model):
     userid = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     productid = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     qty = models.PositiveIntegerField(default=0)
+

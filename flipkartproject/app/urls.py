@@ -22,5 +22,7 @@ urlpatterns = [
     path("showpricerange/", views.showpricerange, name="showpricerange"),
     path("sortingbyprice/", views.sortingbyprice, name="sortingbyprice"),
     path("searchproduct/", views.searchproduct, name="searchproduct"),
+    path("showcarts/", views.showcarts, name="showcarts"),
+    path("addtocart/<productid>/", views.addtocart, name="addtocart"),
 
 ]

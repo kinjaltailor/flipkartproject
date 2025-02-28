@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
@@ -275,3 +275,31 @@ def searchproduct(req):
 
     context = {'allproducts': allproducts}
     return render(req, 'index.html', context)
+
+def showcarts(req):
+    username=req.user
+    allcarts = Cart.objects.filter(userid = username.id)
+    print(allcarts)
+
+    if username.is_authenticated:
+        context = {'allcarts': allcarts, "username": username}
+    else:
+        allcarts = Cart.objects.all()
+        context = {'allcarts': allcarts}
+    return render(req, 'showcarts.html', context)
+
+def addtocart(req, productid):
+    if req.user.is_authenticated:
+        userid = req.user
+    else:
+        userid = None
+
+    allproducts = get_object_or_404(Product, productid=productid)
+    cartitem, created = Cart.objects.get_or_create(userid=userid, productid=allproducts)
+    
+    if not created:
+        cartitem.qty += 1
+    else:
+        cartitem.qty = 1
+    cartitem.save()
+    return redirect('/showcarts')
