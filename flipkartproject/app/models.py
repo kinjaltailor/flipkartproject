@@ -50,3 +50,15 @@ class Orders(models.Model):
     productid = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     qty = models.PositiveIntegerField(default=0)
 
+class Address(models.Model):
+    userid = models.ForeignKey(User, on_delete = models.SET_NULL, null = True)
+    mobile = models.PositiveIntegerField()
+    address = models.TextField()
+    pincode = models.PositiveIntegerField()
+
+class Payment(models.Model):
+    receiptid = models.PositiveIntegerField(primary_key = True)
+    orderid = models.ForeignKey(Orders, on_delete = models.SET_NULL, null=True)
+    userid = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    productid = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    totalprice = models.FloatField()

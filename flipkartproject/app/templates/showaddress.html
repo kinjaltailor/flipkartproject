@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}FlipKart | Select Address{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Select Address for Payment</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="list-group">
+                {% for x in address %}
+                <div class="list-group-item">
+                    <input type="radio" name="" id="x_{{x.id}}">
+                    <label for="x_{{x.id}}">
+                        <strong>Mobile: </strong>{{x.mobile}}<br>
+                        <strong>Address: </strong>{{x.address}}<br>
+                        <strong>Pincode: </strong>{{x.pincode}}<br>
+                    </label>
+                </div>
+                {% empty %}
+                <div class="alert alert-warning">
+                    No saverd addresses found!!!
+                </div>
+
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
